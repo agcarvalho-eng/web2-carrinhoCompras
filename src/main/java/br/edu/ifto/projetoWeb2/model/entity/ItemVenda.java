@@ -26,6 +26,9 @@ public class ItemVenda implements Serializable {
     @ManyToOne
     private Venda venda;
 
+    @ManyToOne
+    private CarrinhoCompra carrinhoCompra;
+
     public Long getId() {
         return id;
     }
@@ -56,6 +59,10 @@ public class ItemVenda implements Serializable {
 
     public void setVenda(Venda venda) {
         this.venda = venda;
+    }
+
+    public void setCarrinhoCompra(CarrinhoCompra carrinhoCompra) {
+        this.carrinhoCompra = carrinhoCompra;
     }
 
     // Método para calcular o valor total da lista ItemVenda.

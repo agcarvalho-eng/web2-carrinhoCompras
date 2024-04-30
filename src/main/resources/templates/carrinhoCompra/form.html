@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+<head th:replace="~{fragments/head :: head(~{},~{::title})}">
+    <title>Realizando uma compra</title>
+</head>
+<body>
+<main class="mt-3">
+    <h3>Dados do Cliente</h3>
+    <form class="mt-3" th:action="${carrinhoCompra.id == null} ? @{/carrinhoCompra/save}
+        : @{/carrinhoCompra/update}" th:object="${carrinhoCompra}" method="post">
+        <div class="row">
+            <div class="col-4">
+                <input type="hidden" th:field="*{id}">
+                <input type="text" class="form-control" th:field="*{nome}" placeholder="Nome do cliente">
+            </div>
+            <div class="col-3">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+        </div>
+    </form>
+
+    <h3>Selecione os Produtos que deseja Comprar</h3>
+    <br>
+    <table class="table" border="1">
+        <thead style="background-color: #f5f5dc;">
+        <tr>
+            <th>Selecionar</th>
+            <th>Produto ID</th>
+            <th>Descrição</th>
+            <th>Valor</th>
+            <th colspan="2">Operações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="p : ${produtos}">
+            <td><input type="checkbox" name="produtoSelecionado" value="${p.id}"></td>
+            <td th:text="${p.id}"> </td>
+            <td th:text="${p.descricao}"></td>
+            <td th:text="${#numbers.formatCurrency(p.valor)}"> </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <button type="button" onclick="adicionarNaLista()">Adicionar à Lista de Compras</button>
+    <script>
+        function adicionarNaLista() {
+            var produtosSelecionados = document.querySelectorAll('input[name="produtoSelecionado"]:checked');
+            var listaCompras = [];
+
+            produtosSelecionados.forEach(function(produto) {
+                listaCompras.push(produto.value);
+            });
+
+            // Aqui você pode enviar a listaCompras para o backend ou fazer qualquer outra operação necessária
+            console.log("Produtos selecionados: ", listaCompras);
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+    <h4 class="container" th:text="${produto.id == null ? 'Cadastrando um novo Produto' :
+            'Editando um Produto existente'}"></h4>
+    <br>
+    <form class="container" th:action="${produto.id == null} ? @{/produto/save} : @{/produto/update}"
+          th:object="${produto}" method="post">
+
+        <div class="form-row">
+            <div class="mb-2 col-lg-6">
+                <input type="hidden" th:field="*{id}">
+                <input class="form-control" type="text" th:field="*{descricao}" placeholder="Descrição">
+            </div>
+            <div class="mb-2 col-lg-6">
+                <input class="form-control" type="text" th:field="*{valor}" placeholder="Valor">
+            </div>
+            <div class="mb-2 col-lg-6">
+                <input type="submit" value="Enviar">
+            </div>
+        </div>
+    </form>
+</main>
+</body>
+</html>
