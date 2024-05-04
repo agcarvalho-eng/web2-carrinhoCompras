@@ -35,6 +35,14 @@ public class ProdutoController {
         model.addAttribute("produtos", repository.produtos());
         return new ModelAndView("/produto/list", model); //Aponta o caminho da view no projeto em /templates/produto.
     }
+
+    @GetMapping("/list-vitrine")
+    public ModelAndView listarVitrine(ModelMap model) {
+        model.addAttribute("msg", "Lista de Produtos");
+        model.addAttribute("produtos", repository.produtos());
+        return new ModelAndView("/produto/vitrine", model); //Aponta o caminho da view no projeto em /templates/produto.
+    }
+
     @PostMapping("/save")
     public ModelAndView save(Produto produto) {
         repository.save(produto);

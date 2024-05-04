@@ -5,7 +5,7 @@
 </head>
 <body>
 <main class="mt-3">
-    <h3>Dados do Cliente</h3>
+    <h3>Dados do Carrinho de Compras</h3>
     <form class="mt-3" th:action="${carrinhoCompra.id == null} ? @{/carrinhoCompra/save}
         : @{/carrinhoCompra/update}" th:object="${carrinhoCompra}" method="post">
         <div class="row">

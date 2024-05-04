@@ -1,10 +1,15 @@
 package br.edu.ifto.projetoWeb2.model.entity;
 
 import jakarta.persistence.*;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+@Component
+@Scope("session")
 @Entity
 public class Venda implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)

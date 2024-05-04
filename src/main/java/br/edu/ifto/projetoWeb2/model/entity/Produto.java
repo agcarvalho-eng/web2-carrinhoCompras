@@ -1,9 +1,7 @@
 package br.edu.ifto.projetoWeb2.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 /*
  * @Entity - Informando que esta classe representa
@@ -33,6 +31,9 @@ public class Produto implements Serializable {
     private Long id;
     private String descricao;
     private double valor;
+
+    @ManyToOne
+    private Venda venda;
 
     public Long getId() {
         return id;

@@ -1,9 +1,13 @@
 package br.edu.ifto.projetoWeb2.model.entity;
 
 import jakarta.persistence.*;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 
+@Component
+@Scope("session")
 @Entity
 public class ItemVenda implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +29,6 @@ public class ItemVenda implements Serializable {
 
     @ManyToOne
     private Venda venda;
-
-    @ManyToOne
-    private CarrinhoCompra carrinhoCompra;
 
     public Long getId() {
         return id;
@@ -59,10 +60,6 @@ public class ItemVenda implements Serializable {
 
     public void setVenda(Venda venda) {
         this.venda = venda;
-    }
-
-    public void setCarrinhoCompra(CarrinhoCompra carrinhoCompra) {
-        this.carrinhoCompra = carrinhoCompra;
     }
 
     // Método para calcular o valor total da lista ItemVenda.

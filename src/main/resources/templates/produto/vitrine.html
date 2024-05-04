@@ -1,0 +1,89 @@
+<!--
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+<head th:replace="~{fragments/head :: head(~{},~{::title})}">
+    <title>Vitrine de Produtos</title>
+</head>
+<body>
+    <main class="container">
+        <h3>Vitrine de Produtos</h3>
+        <br>
+        <form class="container" th:action="@{/itemVenda/cria}" method="post">
+            <table class="table" border="1">
+                <thead style="background-color: #f5f5dc;">
+                <tr>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>Operação</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p : ${produtos}">
+                    <td th:text="${p.descricao}"></td>
+                    <td th:text="${#numbers.formatCurrency(p.valor)}"> </td>
+                    <td>
+                        <input type="hidden" name="descricao" th:value="${p.descricao}">
+                        <input type="hidden" name="valor" th:value="${p.valor}">
+                        <input type="hidden" name="quantidade" value="1">
+                        <button type="submit" class="btn btn-primary">Add ao Carrinho</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </main>
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+<head th:replace="~{fragments/head :: head(~{},~{::title})}">
+    <title>Vitrine de Produtos</title>
+</head>
+<body>
+<main class="container">
+    <h3>Vitrine de Produtos</h3>
+    <br>
+    <form class="container" th:action="@{/itemVenda/add}" method="post">
+        <table class="table" border="1">
+            <thead style="background-color: #f5f5dc;">
+            <tr>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Operação</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="p : ${produtos}">
+                <td th:text="${p.descricao}"></td>
+                <td th:text="${#numbers.formatCurrency(p.valor)}"></td>
+                <td>
+                    <!-- Criação do objeto itemVenda apenas quando o botão é clicado -->
+                    <button type="button" class="btn btn-primary"
+                            onclick="criarItemVenda(this, '${p.descricao}', '${p.valor}', ${quantidade})">Add ao Carrinho</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!-- Campos ocultos para armazenar os atributos do itemVenda -->
+        <input type="hidden" id="descricao" name="descricao">
+        <input type="hidden" id="valor" name="valor">
+        <input type="hidden" id="quantidade" name="quantidade" value="1">
+        <button type="submit" id="submitBtn" style="display: none;">Submit</button>
+    </form>
+</main>
+
+<script>
+    function criarItemVenda(button, descricao, valor) {
+        // Define os valores nos campos ocultos
+        document.getElementById("descricao").value = descricao;
+        document.getElementById("valor").value = valor;
+        document.getElementById("quantidade").value = quantidade;
+        // Simula o clique no botão de submit
+        document.getElementById("submitBtn").click();
+    }
+</script>
+
+</body>
+</html>
