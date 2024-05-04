@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class Venda implements Serializable {
  * que referencia a entidade atual.
  */
     @OneToMany(mappedBy = "venda")
-    private List<ItemVenda> itensVenda;
+    private List<ItemVenda> itensVenda = new ArrayList<>();
 
     public Pessoa getPessoa() {
         return pessoa;

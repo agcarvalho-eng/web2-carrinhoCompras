@@ -26,9 +26,6 @@ public class VendaController {
      */
 
     @Autowired
-    private ItemVenda itemVenda; //O spring vai criar o objeto na session.
-
-    @Autowired
     private Venda venda; //O spring vai criar o objeto na session.
 
     @GetMapping("/form")
@@ -43,25 +40,15 @@ public class VendaController {
         return new ModelAndView(("/venda/list"), model);//Aponta o caminho da view no projeto em /templates/venda.
     }
 
-/*    @PostMapping("/itemVenda/cria")
-    public ModelAndView ItemVendaCria(@RequestParam("descricao") String descricao,
-                                     @RequestParam("valor") double valor) {
-        // Criar um objeto itemVenda com os atributos recebidos
-        ItemVenda itemVenda = new ItemVenda();
-        itemVenda.setDescricao(descricao);
-        itemVenda.setValor(valor);
-        itemVenda.setQuantidade(1); // Quantidade fixa igual a 1
-        return new ModelAndView("redirect:/itemVenda/add");
-    }
- */
-
-    @PostMapping("/itemVenda/add")
-    public ModelAndView itemVendaAdd(ItemVenda itemVenda){
+    @PostMapping("/addItem")
+    public ModelAndView VendaAddItem(ItemVenda item){
+        //System.out.println("ID= " + item.getId());
+        //System.out.println("Quantidade= " + item.getQuantidade());
         // Adiciona o itemVenda enviado por parâmetro na lista da venda da sessão
-        venda.getItensVenda().add(itemVenda);
-        // Associa a venda ao itemVenda
-        itemVenda.setVenda(venda);
-        return new ModelAndView("redirect:/produto/vitrine");
+        venda.getItensVenda().add(item);
+        // Associa a venda ao item
+        item.setVenda(venda);
+        return new ModelAndView("redirect:/produto/list-vitrine");
     }
 
     @GetMapping("/detail/{id}")
