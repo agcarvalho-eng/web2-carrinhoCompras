@@ -22,8 +22,8 @@
                     <!-- Iterando através da lista dos itens de uma venda específica. -->
                     <h6>Relatório referente a venda de ID: <span th:text="${venda.id}"></span></h6>
                     <h6>Nome do cliente: <span th:text="${venda.pessoa.nome}"></span></h6>
-                    <h6>Data da compra: <span th:text="${#dates.format(venda.data, 'dd/MM/yyyy')} + ' -- '
-                    + ${#dates.format(venda.data, 'HH:mm:ss')}"></span></h6>
+                <!--    <h6>Data da compra: <span th:text="${#dates.format(venda.data, 'dd/MM/yyyy')} + ' -- '
+                    + ${#dates.format(venda.data, 'HH:mm:ss')}"></span></h6>-->
                     <br>
                     <tr th:each="item : ${venda.getItensVenda()}">
                         <td th:text="${item.id}"></td>
@@ -33,7 +33,7 @@
                         <td th:text="${#numbers.formatCurrency(item.totalItemVenda())}"></td>
                         <td> <a class="btn btn-primary" th:href="@{/venda/edit/{id}(id=${venda.id})}" role="button">Editar</a> </td>
                         <td> <a class="btn btn-danger" onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"
-                                th:href="@{/venda/remove/{id}(id=${venda.id})}" role="button">Excluir</a> </td>
+                                th:href="@{/venda/removeItem/{id}(id=${item.id})}" role="button">Excluir</a> </td>
                     </tr>
                 </tbody>
             </table>

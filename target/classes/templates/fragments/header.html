@@ -42,8 +42,18 @@
                         <a class="nav-link active" aria-current="page" href="/produto/list-vitrine">Produtos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/carrinhoCompra/list">Carrinho</a>
+                        <a class="nav-link ative" aria-current="page" href="/venda/list-carrinho/1" >Carrinho</a>
                     </li>
+                    <!--<li class="nav-item">
+                    <a class="nav-link active" aria-current="page"
+                        th:text="${session.venda.itensVenda.size() == 0 ? 'Carrinho [0]' : 'Carrinho [' + ${session.venda.itensVenda.size()} + ']'}"
+                        href="/carrinhoCompra/list">
+                        </a>
+                    </li>-->
+
+                    <!--<li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:text="'Carrinho ['+ ${session.venda.itensVenda.size()} +']'" href="/carrinhoCompra/list"></a>
+                        </li>-->
                     <!--<li class="nav-item">
                         <a class="nav-link disabled">Disabled</a>
                     </li>-->

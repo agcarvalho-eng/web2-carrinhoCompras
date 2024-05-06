@@ -28,7 +28,7 @@
             <td th:text="${#numbers.formatCurrency(session.item.produto.valor)}"></td>
             <td th:text="${#numbers.formatDecimal(session.item.quantidade, 1, 2)}"></td>
             <td th:text="${#numbers.formatCurrency(session.item.produto.valor * session.item.quantidade)}"></td>
-<!--            <td> <a class="btn btn-danger" onclick="return window.confirm('Tem certeza que deseja excluir este item?')"
+<!--        <td> <a class="btn btn-danger" onclick="return window.confirm('Tem certeza que deseja excluir este item?')"
                     th:href="@{/venda/remove/{id}(id=${venda.id})}" role="button">Excluir</a> </td> -->
         </tr>
         </tbody>

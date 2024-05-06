@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+<head th:replace="~{fragments/head :: head(~{},~{::title})}">
+    <title>Carrinho de Compras</title>
+</head>
+<body>
+<main class="container">
+    <h3>Carrinho de Compras</h3>
+    <br>
+    <table class="table" border="1">
+        <thead style="background-color: #f5f5dc;">
+        <tr>
+            <th>Descrição do Item</th>
+            <th>Valor Unitário do Item</th>
+            <th>Quantidade</th>
+            <th>Valor Total do Item</th>
+            <th>Ação</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Iterando através da lista dos itens de uma venda específica. -->
+        <h6>Nome do cliente: <span th:text="${venda.pessoa.nome}"></span></h6>
+        <!--<h5>Data da compra: <span th:text="${#dates.format(venda.data, 'dd/MM/yyyy')} + ' -- '
+            + ${#dates.format(venda.data, 'HH:mm:ss')}"></span></h5>-->
+<br>
+<tr th:each="item : ${session.venda.getItensVenda()}">
+    <td th:text="${item.produto.descricao}"></td>
+    <td th:text="${#numbers.formatCurrency(item.produto.valor)}"></td>
+    <td th:text="${#numbers.formatDecimal(item.quantidade, 1, 2)}"></td>
+    <td th:text="${#numbers.formatCurrency(item.produto.valor * item.quantidade)}"></td>
+    <td> <a class="btn btn-danger" onclick="return window.confirm('Tem certeza que deseja excluir este item?')"
+                        th:href="@{/venda/removeItem/{id}(id=${item.id})}" role="button">Excluir</a> </td>
+</tr>
+</tbody>
+</table>
+</main>
+</body>
+</html>

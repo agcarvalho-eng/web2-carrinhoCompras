@@ -1,8 +1,7 @@
 package br.edu.ifto.projetoWeb2.controller;
 
-import br.edu.ifto.projetoWeb2.model.entity.ItemVenda;
-import br.edu.ifto.projetoWeb2.model.entity.Produto;
-import br.edu.ifto.projetoWeb2.model.entity.Venda;
+import br.edu.ifto.projetoWeb2.model.entity.*;
+import br.edu.ifto.projetoWeb2.model.repository.PessoaFisicaRepository;
 import br.edu.ifto.projetoWeb2.model.repository.VendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -12,6 +11,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDate;
+
 @Transactional
 @Scope("request")
 @Controller
@@ -20,6 +21,7 @@ public class VendaController {
 
     @Autowired
     VendaRepository repository;
+
     /**
      * @param venda necessário devido utilizar no form.html o th:object que faz referência ao objeto esperado no controller.
      * @return
@@ -27,6 +29,8 @@ public class VendaController {
 
     @Autowired
     private Venda venda; //O spring vai criar o objeto na session.
+    @Autowired
+    private ItemVenda itemVenda;
 
     @GetMapping("/form")
     public String form(Venda venda){
@@ -48,6 +52,7 @@ public class VendaController {
         venda.getItensVenda().add(item);
         // Associa a venda ao item
         item.setVenda(venda);
+        //System.out.println("ITENS: "+venda.getItensVenda().size());
         return new ModelAndView("redirect:/produto/list-vitrine");
     }
 
@@ -57,17 +62,35 @@ public class VendaController {
         return new ModelAndView("/venda/detail", model); //Aponta para o caminho da view no projeto em templates/venda.
     }
 
-    /**
-     * @param id
-     * @return
-     * @PathVariable é utilizado quando o valor da variável é passada diretamente na URL.
-     */
+
+    @GetMapping("/save")
+    public ModelAndView save() {
+        Pessoa p = new PessoaFisicaRepository().pessoaFisica(1L);
+        venda.setPessoa(p);
+        venda.setData(LocalDate.now());
+        repository.save(venda);
+        return new ModelAndView("redirect:/venda/list");
+    }
+
 
     @GetMapping("/remove/{id}")
     public ModelAndView remove(@PathVariable("id") Long id){
         repository.remove(id);
         return new ModelAndView("redirect:/venda/list"); //Aponta o caminho da view no projeto em templates/venda.
     }
+
+    @GetMapping("removeItem/{id}")
+    public ModelAndView removeItem(@PathVariable("id") Long id){
+        venda.getItensVenda().remove(id);
+        return new ModelAndView("redirect:/list-carrinho/" + venda.getId()); //ESTÁ CORRETO ESTA SINTAXE AQUI????
+    }
+
+    @GetMapping("/list-carrinho/{id}")
+    public ModelAndView listarCarrinho(@PathVariable("id") Long id, ModelMap model) {
+        model.addAttribute("venda", repository.venda(id));
+        return new ModelAndView("/venda/carrinhoCompra", model); //Aponta o caminho da view no projeto em /templates/venda.
+    }
+
     /**
      * @param id
      * @return
