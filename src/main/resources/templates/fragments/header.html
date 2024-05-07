@@ -44,12 +44,12 @@
                     <li class="nav-item">
                         <a class="nav-link ative" aria-current="page" href="/venda/list-carrinho/1" >Carrinho</a>
                     </li>
-                    <!--<li class="nav-item">
+                    <li class="nav-item">
                     <a class="nav-link active" aria-current="page"
-                        th:text="${session.venda.itensVenda.size() == 0 ? 'Carrinho [0]' : 'Carrinho [' + ${session.venda.itensVenda.size()} + ']'}"
-                        href="/carrinhoCompra/list">
+                        th:text="${session.venda.itensVenda.size() == 0 ? 'Carrinho [0]' : 'Carrinho [' + session.venda.itensVenda.size() + ']'}"
+                        href="/venda/list-carrinho">
                         </a>
-                    </li>-->
+                    </li>
 
                     <!--<li class="nav-item">
                         <a class="nav-link active" aria-current="page" th:text="'Carrinho ['+ ${session.venda.itensVenda.size()} +']'" href="/carrinhoCompra/list"></a>

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import java.io.Serializable;
 
 @Component
-@Scope("session")
 @Entity
 public class ItemVenda implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)

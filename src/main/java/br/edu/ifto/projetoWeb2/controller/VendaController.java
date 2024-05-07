@@ -29,8 +29,6 @@ public class VendaController {
 
     @Autowired
     private Venda venda; //O spring vai criar o objeto na session.
-    @Autowired
-    private ItemVenda itemVenda;
 
     @GetMapping("/form")
     public String form(Venda venda){
@@ -85,10 +83,9 @@ public class VendaController {
         return new ModelAndView("redirect:/list-carrinho/" + venda.getId()); //ESTÁ CORRETO ESTA SINTAXE AQUI????
     }
 
-    @GetMapping("/list-carrinho/{id}")
-    public ModelAndView listarCarrinho(@PathVariable("id") Long id, ModelMap model) {
-        model.addAttribute("venda", repository.venda(id));
-        return new ModelAndView("/venda/carrinhoCompra", model); //Aponta o caminho da view no projeto em /templates/venda.
+    @GetMapping("/list-carrinho")
+    public ModelAndView listarCarrinho() {
+        return new ModelAndView("/venda/carrinhoCompra"); //Aponta o caminho da view no projeto em /templates/venda.
     }
 
     /**
